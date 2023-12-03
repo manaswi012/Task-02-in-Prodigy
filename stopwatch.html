@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stopwatch</title>
+  <style>
+    /* Your CSS styles for the stopwatch */
+    /* Example styles */
+    .stopwatch {
+      text-align: center;
+      font-size: 20em;
+      margin-top: 200px;
+    }
+    .buttons {
+      text-align: center;
+      margin-top: 80px;
+      font-size: 30%;
+    }
+  </style>
+</head>
+<body style="background-color: red;"> 
+  <div class="stopwatch" id="stopwatch">00:00:00</div>
+  <div class="buttons"> 
+    <button onclick="startStopwatch()">Start</button>
+    <button onclick="stopStopwatch()">Stop</button>
+    <button onclick="resetStopwatch()">Reset</button>
+  </div>
+
+  <script>
+    // JavaScript logic
+    let timer;
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+
+    function startStopwatch() {
+      timer = setInterval(updateStopwatch, 1000);
+    }
+
+    function stopStopwatch() {
+      clearInterval(timer);
+    }
+
+    function resetStopwatch() {
+      clearInterval(timer);
+      hours = 0;
+      minutes = 0;
+      seconds = 0;
+      document.getElementById('stopwatch').innerText = '00:00:00';
+    }
+
+    function updateStopwatch() {
+      seconds++;
+      if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+          minutes = 0;
+          hours++;
+        }
+      }
+
+      const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+      document.getElementById('stopwatch').innerText = formattedTime;
+    }
+
+    function pad(value) {
+      return value < 10 ? `0${value}` : value;
+    }
+  </script>
+</body>
+</html>
